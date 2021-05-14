@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.List;
 
 @RestController
 @RequestMapping("/tag")
@@ -45,4 +46,9 @@ public class BmsTagController extends BaseController {
         return ApiResult.success(map);
     }
 
+    @GetMapping("/all")
+    public ApiResult<List<BmsTag>> list() {
+        List<BmsTag> list = bmsTagService.list();
+        return ApiResult.success(list);
+    }
 }

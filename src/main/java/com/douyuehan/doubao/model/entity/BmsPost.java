@@ -78,14 +78,20 @@ public class BmsPost implements Serializable {
     @TableField("top")
     @Builder.Default
     private Boolean top = false;
-
+    
     /**
      * 加精
      */
     @TableField("essence")
     @Builder.Default
     private Boolean essence = false;
-
+    
+    /**
+     * 问答
+     */
+    @TableField("isques")
+    @Builder.Default
+    private Boolean isques = false;
     /**
      * 创建时间
      */

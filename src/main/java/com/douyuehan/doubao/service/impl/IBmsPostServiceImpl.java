@@ -46,12 +46,21 @@ public class IBmsPostServiceImpl extends ServiceImpl<BmsTopicMapper, BmsPost> im
 
     @Autowired
     private com.douyuehan.doubao.service.IBmsTopicTagService IBmsTopicTagService;
+
     @Override
-    public Page<PostVO> getList(Page<PostVO> page, String tab) {
+    public Page<PostVO> getList(Page<PostVO> page, String tab,Boolean isques) {
         // 查询话题
-        Page<PostVO> iPage = this.baseMapper.selectListAndPage(page, tab);
+        Page<PostVO> iPage = this.baseMapper.selectListAndPage(page, tab,isques);
         // 查询话题的标签
         setTopicTags(iPage);
+        return iPage;
+    }
+
+    @Override
+    public Page<PostVO> getListByUser(Page<PostVO> page, String uid,Boolean isques) {
+        // 查询话题
+        Page<PostVO> iPage = this.baseMapper.selectUserListAndPage(page, uid,isques);
+       
         return iPage;
     }
 
@@ -60,12 +69,12 @@ public class IBmsPostServiceImpl extends ServiceImpl<BmsTopicMapper, BmsPost> im
     public BmsPost create(CreateTopicDTO dto, UmsUser user) {
         BmsPost topic1 = this.baseMapper.selectOne(new LambdaQueryWrapper<BmsPost>().eq(BmsPost::getTitle, dto.getTitle()));
         Assert.isNull(topic1, "话题已存在，请修改");
-
         // 封装
         BmsPost topic = BmsPost.builder()
                 .userId(user.getId())
                 .title(dto.getTitle())
                 .content(EmojiParser.parseToAliases(dto.getContent()))
+                .isques(dto.getIsques())
                 .createTime(new Date())
                 .build();
         this.baseMapper.insert(topic);

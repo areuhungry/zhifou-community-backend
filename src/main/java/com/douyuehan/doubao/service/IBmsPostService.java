@@ -18,9 +18,21 @@ public interface IBmsPostService extends IService<BmsPost> {
      *
      * @param page
      * @param tab
+     * @param isques
      * @return
      */
-    Page<PostVO> getList(Page<PostVO> page, String tab);
+    Page<PostVO> getList(Page<PostVO> page, String tab, Boolean isques);
+
+    /**
+     * 获取用户话题/文章列表
+     *
+     * @param page
+     * @param uid
+     * @param isques
+     * @return
+     */
+    Page<PostVO> getListByUser(Page<PostVO> page, String uid, Boolean isques);
+
     /**
      * 发布
      *

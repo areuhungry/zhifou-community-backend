@@ -53,6 +53,10 @@ public class PostVO implements Serializable {
      */
     private Boolean essence;
     /**
+     * 问答
+     */
+    private Boolean isques;
+    /**
      * 收藏次數
      */
     private Integer collects;
@@ -72,4 +76,5 @@ public class PostVO implements Serializable {
      * 修改时间
      */
     private Date modifyTime;
+   
 }

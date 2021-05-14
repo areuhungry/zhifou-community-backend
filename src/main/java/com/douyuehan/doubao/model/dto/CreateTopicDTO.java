@@ -24,4 +24,9 @@ public class CreateTopicDTO implements Serializable {
      */
     private List<String> tags;
 
+       /**
+     * 是否为问答
+     */
+    private Boolean isques;
+
 }

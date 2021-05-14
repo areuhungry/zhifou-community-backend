@@ -33,8 +33,19 @@ public class BmsPostController extends BaseController {
     @GetMapping("/list")
     public ApiResult<Page<PostVO>> list(@RequestParam(value = "tab", defaultValue = "latest") String tab,
                                         @RequestParam(value = "pageNo", defaultValue = "1")  Integer pageNo,
-                                        @RequestParam(value = "size", defaultValue = "10") Integer pageSize) {
-        Page<PostVO> list = iBmsPostService.getList(new Page<>(pageNo, pageSize), tab);
+                                        @RequestParam(value = "size", defaultValue = "10") Integer pageSize,
+                                        @RequestParam(value = "isques", defaultValue = "false")  Boolean isques) {
+        Page<PostVO> list = iBmsPostService.getList(new Page<>(pageNo, pageSize), tab,isques);
+        return ApiResult.success(list);
+    }
+
+    @GetMapping("/own")
+    public ApiResult<Page<PostVO>> own(@RequestParam(value = "name") String name,
+                                        @RequestParam(value = "pageNo", defaultValue = "1")  Integer pageNo,
+                                        @RequestParam(value = "size", defaultValue = "10") Integer pageSize,
+                                        @RequestParam(value = "isques", defaultValue = "false")  Boolean isques) {
+                                            UmsUser user = umsUserService.getUserByUsername(name);
+        Page<PostVO> list = iBmsPostService.getListByUser(new Page<>(pageNo, pageSize), user.getId(),isques);
         return ApiResult.success(list);
     }
 

@@ -17,10 +17,20 @@ public interface BmsTopicMapper extends BaseMapper<BmsPost> {
      *
      * @param page
      * @param tab
+     * @param isques
      * @return
      */
-    Page<PostVO> selectListAndPage(@Param("page") Page<PostVO> page, @Param("tab") String tab);
-
+    Page<PostVO> selectListAndPage(@Param("page") Page<PostVO> page, @Param("tab") String tab, @Param("isques") Boolean isques);
+        /**
+     * 分页查询首页话题列表
+     * <p>
+     *
+     * @param page
+     * @param uid
+     * @param isques
+     * @return
+     */
+    Page<PostVO> selectUserListAndPage(@Param("page") Page<PostVO> page, @Param("uid") String uid, @Param("isques") Boolean isques);
     /**
      * 获取详情页推荐
      *
