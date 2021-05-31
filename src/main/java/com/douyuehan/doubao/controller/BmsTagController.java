@@ -56,7 +56,6 @@ public class BmsTagController extends BaseController {
 
     @PostMapping("/update")
     public ApiResult<BmsTag> update(@Valid @RequestBody BmsTag tag) {
-       
         bmsTagService.updateById(tag);
         return ApiResult.success(tag);
     }

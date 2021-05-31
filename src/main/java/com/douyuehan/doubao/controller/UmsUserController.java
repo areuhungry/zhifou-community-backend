@@ -98,4 +98,10 @@ public class UmsUserController extends BaseController {
         iUmsUserService.removeById(id);
         return ApiResult.success(null,"删除成功");
     }
+
+    @PostMapping("/admin/update")
+    public ApiResult<UmsUser> update(@Valid @RequestBody UmsUser user) {
+        iUmsUserService.updateById(user);
+        return ApiResult.success(user);
+    }
 }

@@ -80,10 +80,10 @@ public class BmsPostController extends BaseController {
 
     @DeleteMapping("/delete/{id}")
     public ApiResult<String> delete(@RequestHeader(value = USER_NAME) String userName, @PathVariable("id") String id) {
-        //UmsUser umsUser = umsUserService.getUserByUsername(userName);
+        UmsUser umsUser = umsUserService.getUserByUsername(userName);
         BmsPost byId = iBmsPostService.getById(id);
         Assert.notNull(byId, "来晚一步，话题已不存在");
-        //Assert.isTrue(byId.getUserId().equals(umsUser.getId()), "你为什么可以删除别人的话题？？？");
+        Assert.isTrue(byId.getUserId().equals(umsUser.getId()), "你为什么可以删除别人的话题？？？");
         iBmsPostService.removeById(id);
         return ApiResult.success(null,"删除成功");
     }
@@ -92,5 +92,18 @@ public class BmsPostController extends BaseController {
     public ApiResult<List<BmsPost>> list() {
         List<BmsPost> list = iBmsPostService.list();
         return ApiResult.success(list);
+    }
+
+    @DeleteMapping("/admin/delete/{id}")
+    public ApiResult<String> delete(@PathVariable("id") String id) {
+        iBmsPostService.removeById(id);
+        return ApiResult.success(null,"删除成功");
+    }
+
+    @PostMapping("/admin/update")
+    public ApiResult<BmsPost> update(@Valid @RequestBody BmsPost post) {
+       
+        iBmsPostService.updateById(post);
+        return ApiResult.success(post);
     }
 }
