@@ -10,6 +10,8 @@ import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
@@ -50,5 +52,18 @@ public class BmsTagController extends BaseController {
     public ApiResult<List<BmsTag>> list() {
         List<BmsTag> list = bmsTagService.list();
         return ApiResult.success(list);
+    }
+
+    @PostMapping("/update")
+    public ApiResult<BmsTag> update(@Valid @RequestBody BmsTag tag) {
+       
+        bmsTagService.updateById(tag);
+        return ApiResult.success(tag);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ApiResult<String> delete(@PathVariable("id") String id) {
+        bmsTagService.removeById(id);
+        return ApiResult.success(null,"删除成功");
     }
 }

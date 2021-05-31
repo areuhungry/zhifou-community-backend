@@ -18,6 +18,8 @@ public class CommentVO {
 
     private String username;
 
+    private String bio;
+
     private Date createTime;
 
 }

@@ -16,6 +16,7 @@ import org.springframework.util.Assert;
 import javax.annotation.Resource;
 import javax.validation.Valid;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static com.douyuehan.doubao.jwt.JwtUtil.USER_NAME;
@@ -84,5 +85,17 @@ public class UmsUserController extends BaseController {
     public ApiResult<UmsUser> updateUser(@RequestBody UmsUser umsUser) {
         iUmsUserService.updateById(umsUser);
         return ApiResult.success(umsUser);
+    }
+
+    @GetMapping("/all")
+    public ApiResult<List<UmsUser>> list() {
+        List<UmsUser> list = iUmsUserService.list();
+        return ApiResult.success(list);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ApiResult<String> delete(@PathVariable("id") String id) {
+        iUmsUserService.removeById(id);
+        return ApiResult.success(null,"删除成功");
     }
 }

@@ -55,7 +55,7 @@
         u.username,u.alias, u.avatar
         FROM bms_post t
         LEFT JOIN ums_user u
-        ON t.user_id = u.id
+        ON t.user_id = u.id 
         <where>
            t.user_id = #{uid}
             <if test="isques == true ">

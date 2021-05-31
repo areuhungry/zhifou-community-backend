@@ -10,6 +10,8 @@ import com.douyuehan.doubao.service.IUmsUserService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
+
 import java.util.List;
 
 import static com.douyuehan.doubao.jwt.JwtUtil.USER_NAME;
@@ -35,5 +37,23 @@ public class BmsCommentController extends BaseController {
         UmsUser user = umsUserService.getUserByUsername(userName);
         BmsComment comment = bmsCommentService.create(dto, user);
         return ApiResult.success(comment);
+    }
+    @GetMapping("/all")
+    public ApiResult<List<BmsComment>> list() {
+        List<BmsComment> list = bmsCommentService.list();
+        return ApiResult.success(list);
+    }
+
+    @PostMapping("/update")
+    public ApiResult<BmsComment> update(@Valid @RequestBody BmsComment comment) {
+       
+        bmsCommentService.updateById(comment);
+        return ApiResult.success(comment);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ApiResult<String> delete(@PathVariable("id") String id) {
+        bmsCommentService.removeById(id);
+        return ApiResult.success(null,"删除成功");
     }
 }
